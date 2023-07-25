@@ -59,12 +59,10 @@ void Checker(char** Tokens, bool* s)
         {
                 int original_stdout = dup(1);
                 cout << "Output Redirection" << endl;
-                  cout << Tokens[last] << endl;
-                cout << Tokens[last+1] << endl;
                 int out = open(Tokens[i+1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
                 dup2(out, 1);
             
-              
+                
                 char * arr[]= {Tokens[last], Tokens[last+1], NULL};
                 execvp(Tokens[last], arr);
 
@@ -104,6 +102,7 @@ void Checker(char** Tokens, bool* s)
         }
         else if(Tokens[i][0] == '|')
         {
+                
                 int original_stdout = dup(1);
                 int original_stdin = dup(0);
             
@@ -139,6 +138,7 @@ void Checker(char** Tokens, bool* s)
                 cout << endl;
                 last = i+1;
                 t = true;
+                
 
         }
         i++;
@@ -194,7 +194,7 @@ int main(int argc,char* argv[])
     char* command = new char[1024]; // allocate 1024 bytes for command 
     cout << "Enter a command: ";
     cin.getline(command,1024);
-
+    cin.ignore();
     int len = strlen(command);
     
     while(i<len)
